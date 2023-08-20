@@ -4,6 +4,5 @@ from django.db import models
 
 class Persons(models.Model):
     id = models.BigAutoField(primary_key=True)
-    email = models.EmailField(default="")
     name = models.CharField(max_length=30)
     age = models.IntegerField(default=0)
