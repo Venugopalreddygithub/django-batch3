@@ -1,12 +1,22 @@
 from django.shortcuts import redirect, render 
-from django.http import HttpResponse 
+from django.http import HttpResponse, JsonResponse 
 
 
 def index(request):
-    return HttpResponse("Index function")
+    html = """
+        <h1>Hello World </h1>
+        <h6>Heading - 6 </h1>
+        <p>Byee</P>
+"""
+    return HttpResponse(html)
 
 def bye(request):
-    return HttpResponse("Bye function")
+    a = { 
+        "title": "Think and Grow Rich",
+        "author": "Nepoleon Hill"
+    }
+    return JsonResponse(a)
 
 def hello(request):
-    return HttpResponse("Hello function")
+    page_name = "temp.html"
+    return render(request, page_name)
