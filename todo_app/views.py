@@ -1,22 +1,25 @@
 from django.shortcuts import redirect, render 
 from django.http import HttpResponse, JsonResponse 
-
+from todo_app.models import Todo 
 
 def index(request):
-    html = """
+    todo = Todo.objects.last()
+    html = f"""
         <h1>Hello World </h1>
-        <h6>Heading - 6 </h1>
-        <p>Byee</P>
-"""
+        <p>Bye</p>
+        <p>Todod title: {todo.title}</p>
+""" 
     return HttpResponse(html)
 
 def bye(request):
+    todo = Todo.objects.last()
     a = { 
-        "title": "Think and Grow Rich",
+        "title": todo.title,
         "author": "Nepoleon Hill"
     }
     return JsonResponse(a)
 
 def hello(request):
+    todos = Todo.objects.all()
     page_name = "temp.html"
-    return render(request, page_name)
+    return render(request, page_name, context={'todos': todos, 'show': True})

@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Render function is used to render html page!</h1>
+    {% if show %}
+        <ul>
+            {% for i in todos%}
+            <li>{{i.title}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %} 
 </body>
-</html>
+</html> 
