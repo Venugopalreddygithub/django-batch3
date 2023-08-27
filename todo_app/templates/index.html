@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo App</title>
 </head>
 <body>
-    {% if show %}
+    <h1>Todo App</h1>
+    <hr>
+    <h1>Todo List</h1>
         <ul>
-            {% for i in todos%}
+            {% for i in todo%}
             <li>{{i.title}}</li>
             {% endfor %}
         </ul>
-    {% endif %} 
 </body>
 </html> 
