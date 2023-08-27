@@ -8,4 +8,4 @@ def index(request):
     data = {
         "todo": all_todos
     }
-    return render(request, "index.html", data)
+    return render(request, "index.html", context=data)
