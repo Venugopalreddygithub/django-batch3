@@ -46,3 +46,15 @@ def delete_todo(request, todo_id):
                 return redirect('todo_index')
             except Todo.DoesNotExist:
                 return HttpResponse("Error Todo not found")
+            
+def mark_view(request, todo_id):
+        if request.method == "GET":
+            return HttpResponse("Invalid Method")
+        else:
+            try:
+                todo_object = Todo.objects.get(id=todo_id)
+                todo_object.completed = True 
+                todo_object.save()
+                return redirect('todo_index')
+            except Todo.DoesNotExist:
+                return HttpResponse("Error Todo not found")

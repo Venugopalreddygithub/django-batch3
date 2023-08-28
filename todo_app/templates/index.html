@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Todo App</h1>
-    <form method="POST" action="{% url 'add-todo' %}">
+    <form method="POST" action="{% url 'add-todo' %}" autocomplete="off">
     {% csrf_token %} 
   <div class="mb-3">
     <label for="todoInput" class="form-label">Add Todo !</label>
@@ -27,21 +27,38 @@
    
    <ul>
      {% for i in todo %} 
-      {% if i.completed %}
-       <li class="list-group-item list-group-item-success" style="display: flex; justify-content: space-between;padding: 12px;">{{i.title}}
-        <form method="POST" action="{% url 'delete_todo' i.id %}">
-        {% csrf_token %} 
-        <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-       </li>
-       {% else %}
-        <li class="list-group-item list-group-item-danger" style="display: flex; justify-content: space-between;padding: 12px;">{{i.title}}
-       <form method="POST" action="{% url 'delete_todo' i.id %}">
-       {% csrf_token %} 
-        <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-        </li>
-      {% endif %}
+        {% if i.completed %}
+            <li class="list-group-item list-group-item-success" style="display: flex; justify-content: space-between;padding: 12px;">{{i.title}}
+                <div>
+                <form method="POST" action="{% url 'delete_todo' i.id %}">
+                {% csrf_token %} 
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+             {% if i.completed == False %}
+                    <form method="POST" action="{% url 'mark_view' i.id %}">
+                    {% csrf_token %} 
+                    <button type="submit" class="btn btn-warning">Mark as completed</button>
+                    </form>
+                {% endif %} 
+                </div>
+            </li>
+
+        {% else %}
+                <li class="list-group-item list-group-item-danger" style="display: flex; justify-content: space-between;padding: 12px;">{{i.title}}
+                <div>
+                <form method="POST" action="{% url 'delete_todo' i.id %}">
+                {% csrf_token %} 
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                     {% if i.completed == False %}
+                    <form method="POST" action="{% url 'mark_view' i.id %}">
+                    {% csrf_token %} 
+                    <button type="submit" class="btn btn-warning">Mark as completed</button>
+                    </form>
+                {% endif %}
+                </div>
+                </li>
+        {% endif %}
      {% endfor %}
    </ul>
 
