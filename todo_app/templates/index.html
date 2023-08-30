@@ -8,6 +8,14 @@
 </head>
 <body>
     <h1>Todo App</h1>
+    <a href="/todos/?completed=1" class="btn btn-success">Show Completed Todos</a>
+    <a href="/todos/?completed=0" class="btn btn-warning">Show InCompleted Todos</a>
+    <a href="/todos/?order=1" class="btn btn-info">Order by date latest</a>
+    <a href="/todos/?order=0" class="btn btn-dark">Order by date Earlist</a>
+    <form method="GET", action= {% url 'todo_index' %}>
+    <input type="text" class="form-control" id="todoSearch" name="todoSearch" required >
+    <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
     <form method="POST" action="{% url 'add-todo' %}" autocomplete="off">
     {% csrf_token %} 
   <div class="mb-3">
@@ -29,6 +37,7 @@
      {% for i in todo %} 
         {% if i.completed %}
             <li class="list-group-item list-group-item-success" style="display: flex; justify-content: space-between;padding: 12px;">{{i.title}}
+               <span class="badge bg-light text-dark">{{i.created_at}}</span>
                 <div>
                 <form method="POST" action="{% url 'delete_todo' i.id %}">
                 {% csrf_token %} 
@@ -39,18 +48,19 @@
                     {% csrf_token %} 
                     <button type="submit" class="btn btn-warning">Mark as completed</button>
                     </form>
-                {% endif %} 
+            {% endif %} 
                 </div>
             </li>
 
         {% else %}
                 <li class="list-group-item list-group-item-danger" style="display: flex; justify-content: space-between;padding: 12px;">{{i.title}}
+               <span class="badge bg-light text-dark">{{i.created_at}}</span>
                 <div>
                 <form method="POST" action="{% url 'delete_todo' i.id %}">
                 {% csrf_token %} 
                     <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-                     {% if i.completed == False %}
+                 {% if i.completed == False %}
                     <form method="POST" action="{% url 'mark_view' i.id %}">
                     {% csrf_token %} 
                     <button type="submit" class="btn btn-warning">Mark as completed</button>
